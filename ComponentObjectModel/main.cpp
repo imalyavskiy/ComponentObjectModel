@@ -16,9 +16,6 @@ using namespace mycom;
 int test_1()
 {
     ptr<iunknown> pIUnknown;
-    ptr<ifirst> pIFirst;
-    ptr<isecond> pISecond;
-    ptr<icollection> pICollection;
 
     if(!mycom::unknown::create(uuidof<iunknown>::value(), pIUnknown))
     {
@@ -36,8 +33,6 @@ int test_2()
 {
     ptr<iunknown> pIUnknown;
     ptr<ifirst> pIFirst;
-    ptr<isecond> pISecond;
-    ptr<icollection> pICollection;
 
     if(!mycom::first::create(uuidof<ifirst>::value(), pIFirst))
     {
@@ -58,7 +53,6 @@ int test_3()
     ptr<iunknown> pIUnknown;
     ptr<ifirst> pIFirst;
     ptr<isecond> pISecond;
-    ptr<icollection> pICollection;
 
     if(!mycom::second::create(uuidof<isecond>::value(), pISecond))
     {
@@ -74,9 +68,6 @@ int test_3()
 
 int test_4()
 {
-    ptr<iunknown> pIUnknown;
-    ptr<ifirst> pIFirst;
-    ptr<isecond> pISecond;
     ptr<icollection> pICollection;
 
     if(!mycom::collection::create(uuidof<icollection>::value(), pICollection))
