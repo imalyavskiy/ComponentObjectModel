@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="collection.cpp" />
     <ClCompile Include="first.cpp" />
     <ClCompile Include="second.cpp" />
     <ClCompile Include="unknown.cpp" />
@@ -163,6 +164,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collection.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="first.h" />
     <ClInclude Include="interface_publishing.h" />

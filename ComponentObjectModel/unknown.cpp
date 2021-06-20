@@ -4,7 +4,7 @@
 namespace mycom
 {
 
-bool unknown::CreateInstance(uuid id, void** ppv)
+bool unknown::create(uuid id, void** ppv, iunknown* outer)
 {
     *ppv = nullptr;
     unknown* p = new unknown();
@@ -16,8 +16,9 @@ bool unknown::CreateInstance(uuid id, void** ppv)
     return false;
 }
 
-unknown::unknown(std::string name)
-    : name_(name)
+unknown::unknown(iunknown* outer, std::string name)
+    : outer_(outer)
+    , name_(name)
 {
     std::cout << "ctor(" << name_ << ")\n";
 }
@@ -29,9 +30,9 @@ unknown::~unknown()
 
 bool unknown::queryinterface(uuid iid, void** ppv)
 {
-    if(iid == uuid_of_type<i_unknown>::value())
+    if(iid == uuidof<iunknown>::value())
     {
-        *ppv = static_cast<i_unknown*>(this);
+        *ppv = static_cast<iunknown*>(this);
         addref();
         return true;
     }
@@ -40,7 +41,13 @@ bool unknown::queryinterface(uuid iid, void** ppv)
 
 int32_t unknown::addref()
 {
-    return ++counter_;
+    counter_++;
+
+    if(outer_)
+    {
+        return outer_->addref();
+    }
+    return counter_;
 }
 
 int32_t unknown::release()
@@ -48,10 +55,10 @@ int32_t unknown::release()
     int32_t counter = --counter_;
     assert(counter >= 0);
 
-    if(counter == 0)
-    {
+    if(outer_)
+        return outer_->release();
+    else if(counter == 0)
         delete this;
-    }
 
     return counter;
 }

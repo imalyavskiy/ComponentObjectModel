@@ -4,8 +4,8 @@
 
 namespace mycom
 {
-first::first(std::string name)
-    : unknown(name)
+first::first(iunknown* outer, std::string name)
+    : unknown(outer, name)
 {
 
 }
@@ -13,9 +13,9 @@ first::first(std::string name)
 bool first::queryinterface(uuid id, void** ppv)
 {
     *ppv = nullptr;
-    if(id == uuid_of_type<i_first>::value())
+    if(id == uuidof<ifirst>::value())
     {
-        *ppv = static_cast<i_first*>(this);
+        *ppv = static_cast<ifirst*>(this);
         addref();
         return true;
     }
@@ -23,10 +23,10 @@ bool first::queryinterface(uuid id, void** ppv)
     return unknown::queryinterface(id, ppv);
 }
 
-bool first::CreateInstance(uuid id, void** ppv)
+bool first::create(uuid id, void** ppv, iunknown* outer)
 {
     *ppv = nullptr;
-    first* p = new first();
+    first* p = new first(outer);
     if(p->queryinterface(id, ppv))
         return true;
 

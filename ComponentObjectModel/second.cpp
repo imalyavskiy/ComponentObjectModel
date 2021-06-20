@@ -5,8 +5,8 @@
 
 namespace mycom
 {
-second::second(std::string name)
-    : first(name)
+second::second(iunknown* outer, std::string name)
+    : first(outer, name)
 {
 
 }
@@ -14,9 +14,9 @@ second::second(std::string name)
 bool second::queryinterface(uuid id, void** ppv)
 {
     *ppv = nullptr;
-    if(id == uuid_of_type<i_second>::value())
+    if(id == uuidof<isecond>::value())
     {
-        *ppv = static_cast<i_second*>(this);
+        *ppv = static_cast<isecond*>(this);
         addref();
         return true;
     }
@@ -24,11 +24,11 @@ bool second::queryinterface(uuid id, void** ppv)
     return first::queryinterface(id, ppv);
 }
 
-bool second::CreateInstance(uuid id, void** ppv)
+bool second::create(uuid id, void** ppv, iunknown* outer)
 {
     *ppv = nullptr;
     
-    auto p = new second();
+    auto p = new second(outer);
     if(p->queryinterface(id, ppv))
         return true;
 

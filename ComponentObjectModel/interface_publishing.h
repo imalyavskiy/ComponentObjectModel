@@ -17,7 +17,7 @@ namespace mycom
     };
 
     template <typename _Type>
-    struct uuid_of_type
+    struct uuidof
     {
         static uuid const& value()
         {
@@ -26,11 +26,11 @@ namespace mycom
     };
 
     template <class _Dst_, class _Src_>
-    ptr<_Dst_> interface_cast(ptr<_Src_>& src)
+    ptr<_Dst_> icast(ptr<_Src_>& src)
     {
         ptr<_Dst_> dst;
 
-        if(!src || !src->queryinterface(uuid_of_type<_Dst_>::value(), (void**)dst) || nullptr == dst.get())
+        if(!src || !src->queryinterface(uuidof<_Dst_>::value(), (void**)dst) || nullptr == dst.get())
             return {};
 
         return dst;

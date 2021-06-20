@@ -9,9 +9,8 @@ public:
     using value_t = _T;
     using valueptr_t = _T*;
 
-    ptr() { }
-    
-    ptr(valueptr_t p)
+    // this constructor serves as default if default argument value involved
+    ptr(valueptr_t p = nullptr)
         : p_(p)
     {
         if(p_)
@@ -20,7 +19,8 @@ public:
         }
     }
 
-    ptr(ptr<value_t>& p)
+    // copy constructor
+    ptr(const ptr<value_t>& p)
         : p_(p.p_)
     {
         if(p_)
@@ -29,11 +29,13 @@ public:
         }
     }
 
+    // destructor
     ~ptr()
     {
         reset();
     }
 
+    // assign operator(copy semantics)
     ptr& operator=(const ptr& p)
     {
         if(p_)
@@ -56,15 +58,15 @@ public:
         return p_ != nullptr;
     }
 
+    // boolean negation operator
     bool operator !() const
     {
         return !operator bool();
     }
 
-
+    // contained pointer must be nullptr for this operation because is will be overwritten without call to release()
     operator void** ()
     {
-        // contained pointer must be nullptr for this operation because is will be overwritten without call to release()
         assert(p_ == nullptr); 
         return (void**)&p_;
     }

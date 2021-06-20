@@ -5,17 +5,16 @@ namespace mycom
 {
 class first
     : public unknown
-    , public i_first
+    , public ifirst
 {
 public:
-    static bool CreateInstance(uuid iid, void** ppv);
+    static bool create(uuid iid, void** ppv, iunknown* outer = nullptr);
+    first(iunknown* outer = nullptr, std::string name = "first");
 
     DECLARE_ADDREF(unknown)
     DECLARE_RELEASE(unknown)
 
 protected:
-    first(std::string name = "first");
-
     bool queryinterface(uuid iid, void** ppv) override;
     
     void foo() override;

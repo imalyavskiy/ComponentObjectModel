@@ -4,6 +4,8 @@
 #include <cassert>
 #include <iostream>
 #include <array>
+#include <vector>
+#include <list>
 
 // TODO: remove when interface_publishing and interface_cast incorporation will be done
 #include <boost/uuid/uuid.hpp>

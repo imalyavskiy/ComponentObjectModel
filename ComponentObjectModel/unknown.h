@@ -19,21 +19,25 @@ int32_t release() override \
 
 namespace mycom
 {
-class unknown : public i_unknown
+class unknown 
+    : public iunknown
 {
 public: 
-    static bool CreateInstance(uuid iid, void** ppv);
+    static bool create(uuid iid, void** ppv, iunknown* outer = nullptr);
+    unknown(iunknown* outer = nullptr, std::string name = "unknown");
+
     ~unknown();
 
 protected:
-    unknown(std::string name = "unknown");
-
     bool queryinterface(uuid iid, void** ppv) override;
     int32_t addref() override;
     int32_t release() override;
 
 protected:
     int32_t counter_ = 0;
+
     std::string name_;
+
+    iunknown* outer_ = nullptr;
 };
 }
