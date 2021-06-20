@@ -50,5 +50,11 @@
     <ClInclude Include="second.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="interface_publishing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interface_cast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
