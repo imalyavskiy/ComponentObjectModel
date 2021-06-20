@@ -4,6 +4,5 @@
 #include "smartpointer.h"
 #include "uuid.h"
 #include "interface_publishing.h"
-//#include "interface_cast.h"
 #include "interfaces.h"
 #endif // __COMMON_H__

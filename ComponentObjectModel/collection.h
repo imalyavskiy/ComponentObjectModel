@@ -19,7 +19,7 @@ public:
     // icollection
     virtual size_t size() const override;
 
-    virtual iunknown* getitem(size_t index);
+    virtual iunknown* getitem(size_t index) override;
 
 protected:
     std::vector<std::unique_ptr<second>> items_;
