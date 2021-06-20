@@ -1,4 +1,8 @@
+#include "common.h"
+#include "unknown.h"
+#include "first.h"
 #include "second.h"
+
 namespace mycom
 {
 second::second(std::string name)
@@ -7,25 +11,25 @@ second::second(std::string name)
 
 }
 
-bool second::queryinterface(IID iid, void** ppv)
+bool second::queryinterface(uuid id, void** ppv)
 {
     *ppv = nullptr;
-    if(iid == iid_i_second)
+    if(id == uuid_of_type<i_second>::value())
     {
         *ppv = static_cast<i_second*>(this);
         addref();
         return true;
     }
 
-    return first::queryinterface(iid, ppv);
+    return first::queryinterface(id, ppv);
 }
 
-bool second::CreateInstance(IID iid, void** ppv)
+bool second::CreateInstance(uuid id, void** ppv)
 {
     *ppv = nullptr;
     
     auto p = new second();
-    if(p->queryinterface(iid, ppv))
+    if(p->queryinterface(id, ppv))
         return true;
 
     delete p;

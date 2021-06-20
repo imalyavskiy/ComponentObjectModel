@@ -6,9 +6,12 @@ template<typename _T>
 class ptr
 {
 public:
+    using value_t = _T;
+    using valueptr_t = _T*;
+
     ptr() { }
     
-    ptr(_T* p)
+    ptr(valueptr_t p)
         : p_(p)
     {
         if(p_)
@@ -17,7 +20,7 @@ public:
         }
     }
 
-    ptr(ptr<_T>& p)
+    ptr(ptr<value_t>& p)
         : p_(p.p_)
     {
         if(p_)
@@ -48,6 +51,17 @@ public:
         return *this;
     }
 
+    operator bool() const
+    {
+        return p_ != nullptr;
+    }
+
+    bool operator !() const
+    {
+        return !operator bool();
+    }
+
+
     operator void** ()
     {
         // contained pointer must be nullptr for this operation because is will be overwritten without call to release()
@@ -55,7 +69,7 @@ public:
         return (void**)&p_;
     }
 
-    _T* operator->()
+    valueptr_t operator->()
     {
         // check if the contained pointer is not nullptr
         assert(p_);
@@ -71,8 +85,13 @@ public:
         }
     }
 
+    valueptr_t get()
+    {
+        return p_;
+    }
+
 private: 
-    _T* p_ = nullptr;
+    valueptr_t p_ = nullptr;
 };
 }
 #endif // __SMART_POINTER_H__

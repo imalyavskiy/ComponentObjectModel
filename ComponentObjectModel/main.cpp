@@ -1,32 +1,38 @@
+#include "common.h"
+#include "unknown.h"
+#include "first.h"
 #include "second.h"
+
+using namespace mycom;
 
 int main()
 {
-    mycom::ptr<mycom::i_unknown> pIUnknown;
-    mycom::ptr<mycom::i_first> pIFirst;
-    mycom::ptr<mycom::i_second> pISecond;
+    ptr<i_unknown> pIUnknown;
+    ptr<i_first> pIFirst;
+    ptr<i_second> pISecond;
 
-    if(!mycom::unknown::CreateInstance(mycom::iid_i_unknown, (void**)pIUnknown)) {
+    if(!mycom::unknown::CreateInstance(uuid_of_type<i_unknown>::value(), (void**)pIUnknown)) {
         std::cout << "failed to instantiate mycom::unknown\n";
     }
     pIUnknown.reset();
 
-    if(!mycom::first::CreateInstance(mycom::iid_i_first, (void**)pIFirst))
+    if(!mycom::first::CreateInstance(uuid_of_type<i_first>::value(), (void**)pIFirst))
     {
         std::cout << "failed to instantiate mycom::first\n";
     }
-    pIFirst->queryinterface(mycom::iid_i_unknown, (void**)pIUnknown);
+    pIFirst->queryinterface(uuid_of_type<i_unknown>::value(), (void**)pIUnknown);
     pIUnknown.reset();
     pIFirst.reset();
 
-    if(!mycom::second::CreateInstance(mycom::iid_i_second, (void**)pISecond))
+    if(!mycom::second::CreateInstance(uuid_of_type<i_second>::value(), (void**)pISecond))
     {
         std::cout << "failed to instantiate mycom::second\n";
     }
-    pISecond->queryinterface(mycom::iid_i_unknown, (void**)pIUnknown);
-    pISecond->queryinterface(mycom::iid_i_first, (void**)pIFirst);
+
+    pIUnknown = interface_cast<i_unknown>(pISecond);
+    pIFirst = interface_cast<i_first>(pISecond);
 
     pISecond.reset();
     pIFirst.reset();
     pIUnknown.reset();
-}
+} 

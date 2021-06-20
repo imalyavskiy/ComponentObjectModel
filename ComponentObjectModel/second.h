@@ -1,4 +1,5 @@
-#include "first.h"
+#ifndef __SECOND_H__
+#define __SECOND_H__
 
 namespace mycom
 {
@@ -7,7 +8,7 @@ class second
     , public i_second
 {
 public:
-    static bool CreateInstance(IID iid, void** ppv);
+    static bool CreateInstance(uuid iid, void** ppv);
 
     DECLARE_ADDREF(unknown)
     DECLARE_RELEASE(unknown)
@@ -15,8 +16,9 @@ public:
 protected:
     second(std::string name = "second");
 
-    bool queryinterface(IID iid, void** ppv) override;
+    bool queryinterface(uuid iid, void** ppv) override;
 
     void boo() override;
 };
 }
+#endif // __SECOND_H__

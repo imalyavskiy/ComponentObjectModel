@@ -1,12 +1,14 @@
+#include "common.h"
 #include "unknown.h"
+
 namespace mycom
 {
 
-bool unknown::CreateInstance(IID iid, void** ppv)
+bool unknown::CreateInstance(uuid id, void** ppv)
 {
     *ppv = nullptr;
     unknown* p = new unknown();
-    if(p->queryinterface(iid, ppv))
+    if(p->queryinterface(id, ppv))
         return true;
 
     delete p;
@@ -25,9 +27,9 @@ unknown::~unknown()
     std::cout << "dtor(" << name_ << ")\n";
 }
 
-bool unknown::queryinterface(IID iid, void** ppv)
+bool unknown::queryinterface(uuid iid, void** ppv)
 {
-    if(iid == iid_i_unknown)
+    if(iid == uuid_of_type<i_unknown>::value())
     {
         *ppv = static_cast<i_unknown*>(this);
         addref();

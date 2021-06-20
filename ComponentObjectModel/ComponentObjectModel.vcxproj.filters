@@ -53,7 +53,10 @@
     <ClInclude Include="interface_publishing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="interface_cast.h">
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uuid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

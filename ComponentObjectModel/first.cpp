@@ -1,4 +1,7 @@
+#include "common.h"
+#include "unknown.h"
 #include "first.h"
+
 namespace mycom
 {
 first::first(std::string name)
@@ -7,24 +10,24 @@ first::first(std::string name)
 
 }
 
-bool first::queryinterface(IID iid, void** ppv)
+bool first::queryinterface(uuid id, void** ppv)
 {
     *ppv = nullptr;
-    if(iid == iid_i_first)
+    if(id == uuid_of_type<i_first>::value())
     {
         *ppv = static_cast<i_first*>(this);
         addref();
         return true;
     }
 
-    return unknown::queryinterface(iid, ppv);
+    return unknown::queryinterface(id, ppv);
 }
 
-bool first::CreateInstance(IID iid, void** ppv)
+bool first::CreateInstance(uuid id, void** ppv)
 {
     *ppv = nullptr;
     first* p = new first();
-    if(p->queryinterface(iid, ppv))
+    if(p->queryinterface(id, ppv))
         return true;
 
     delete p;

@@ -1,6 +1,3 @@
-#include "interfaces.h"
-#include "smartpointer.h"
-
 #define DECLARE_QUERYINTERFACE(_SUPER_) \
 int32_t queryinterface(IID iid, void** ppv) override \
 { \
@@ -25,13 +22,13 @@ namespace mycom
 class unknown : public i_unknown
 {
 public: 
-    static bool CreateInstance(IID iid, void** ppv);
+    static bool CreateInstance(uuid iid, void** ppv);
     ~unknown();
 
 protected:
     unknown(std::string name = "unknown");
 
-    bool queryinterface(IID iid, void** ppv) override;
+    bool queryinterface(uuid iid, void** ppv) override;
     int32_t addref() override;
     int32_t release() override;
 
